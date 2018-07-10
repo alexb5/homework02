@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.2)
 
-project(ip_filter VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
+project(ip_filter VERSION 1.1.$ENV{TRAVIS_BUILD_NUMBER})
 
 configure_file(version.h.in ${PROJECT_SOURCE_DIR}/version.h)
 
-find_package(Boost COMPONENTS unit_test_framework REQUIRED)
+find_package(Boost COMPONENTS unit_test_framework program_options REQUIRED)
 
 add_executable(${PROJECT_NAME} "main.cpp")
 
@@ -24,7 +24,10 @@ set_target_properties(test_${PROJECT_NAME} PROPERTIES
         INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
         )
 
-target_link_libraries(${PROJECT_NAME} library)
+target_link_libraries(${PROJECT_NAME}
+        ${Boost_LIBRARIES}
+        library
+        )
 
 target_link_libraries(test_${PROJECT_NAME}
         ${Boost_LIBRARIES}
