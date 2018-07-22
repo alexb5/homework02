@@ -2,7 +2,7 @@
 #include "version.h"
 
 int lib::version_major() {
-    return PRODUCT_VERSION_MAJOR;
+    return PROJECT_VERSION_MAJOR;
 }
 
 int lib::version_minor() {
