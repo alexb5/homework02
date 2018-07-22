@@ -4,7 +4,7 @@ project(ip_filter VERSION 1.1.$ENV{TRAVIS_BUILD_NUMBER})
 
 configure_file(version.h.in ${PROJECT_SOURCE_DIR}/version.h)
 
-find_package(Boost COMPONENTS unit_test_framework program_options REQUIRED)
+find_package(GTest REQUIRED)
 
 add_executable(${PROJECT_NAME} "main.cpp")
 
@@ -20,18 +20,15 @@ set_target_properties(${PROJECT_NAME}  test_${PROJECT_NAME} PROPERTIES
         )
 
 set_target_properties(test_${PROJECT_NAME} PROPERTIES
-        COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
-        INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
+        INCLUDE_DIRECTORIES ${GTEST_INCLUDE_DIRS}
         )
 
-target_link_libraries(${PROJECT_NAME}
-        ${Boost_LIBRARIES}
-        library
-        )
+target_link_libraries(${PROJECT_NAME} library)
 
 target_link_libraries(test_${PROJECT_NAME}
-        ${Boost_LIBRARIES}
+        ${GTEST_BOTH_LIBRARIES}
         library
+        pthread
         )
 
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
