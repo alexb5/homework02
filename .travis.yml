@@ -11,6 +11,14 @@ before_script:
   - sudo cp *.a /usr/lib
   - cd "${TRAVIS_BUILD_DIR}"
 
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc-7
+    - g++-7
+
 script:
   - cmake .
   - cmake --build .
