@@ -7,7 +7,7 @@ before_script:
   - sudo apt-get -qq update
   - sudo apt-get install -y libgtest-dev
   - sudo apt-get install libboost-test-dev -y
-  - sudo apt-get intall -qq g++-7
+  - sudo apt-get install -qq g++-7
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 90
 
   #build gtest
