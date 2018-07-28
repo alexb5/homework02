@@ -50,7 +50,7 @@ TEST(sorting, backward_sorting)
     {222, 173, 235, 246},
     {222, 130, 177, 64}
     };
-  std::vector<lib::IpAddress> expected{
+  const std::vector<lib::IpAddress> expected{
     {222, 173, 235, 246},
     {222, 130, 177, 64},
     {222, 82, 198, 61},
@@ -64,39 +64,39 @@ TEST(sorting, backward_sorting)
 
 TEST(filtering, filter_by_first_byte)
 {
-  std::vector<lib::IpAddress> pool{
+  const std::vector<lib::IpAddress> pool{
     {123, 82, 198, 61}, 
     {1, 173, 235, 246}, 
     {2, 130, 177, 64},
     };
-  std::vector<lib::IpAddress> expected{{123, 82, 198, 61}};
+  const std::vector<lib::IpAddress> expected{{123, 82, 198, 61}};
 
   EXPECT_EQ(expected, lib::filter(123, pool));
 }
 
 TEST(filtering, filter_by_two_bytes)
 {
-  std::vector<lib::IpAddress> pool{
+  const std::vector<lib::IpAddress> pool{
     {1, 32, 198, 61},
     {1, 173, 235, 246},
     {2, 31, 177, 64},
     {4, 173, 1, 2}
     };
-  std::vector<lib::IpAddress> expected{{1, 32, 198, 61}};
+  const std::vector<lib::IpAddress> expected{{1, 32, 198, 61}};
 
   EXPECT_EQ(expected, lib::filter(1, 32, pool));
 }
 
 TEST(filtering, filter_by_any_byte)
 {
-  std::vector<lib::IpAddress> pool{
+  const std::vector<lib::IpAddress> pool{
     {1, 32, 198, 61},
     {2, 1, 235, 246},
     {2, 31, 1, 64},
     {4, 173, 4, 1},
     {4, 32, 198, 61}
     };
-  std::vector<lib::IpAddress> expected{
+  const std::vector<lib::IpAddress> expected{
     {1, 32, 198, 61},
     {2, 1, 235, 246},
     {2, 31, 1, 64},
@@ -104,4 +104,18 @@ TEST(filtering, filter_by_any_byte)
     };
 
   EXPECT_EQ(expected, lib::filter_any(1, pool));
+}
+
+TEST(printing, print_pool)
+{
+  std::stringstream out;
+  const char expected[] = "1.32.198.61\n2.1.235.246\n";
+  const std::vector<lib::IpAddress> pool{
+    {1, 32, 198, 61},
+    {2, 1, 235, 246},
+    };
+
+  lib::printIp(pool, out);
+
+  EXPECT_EQ(expected, out.str());
 }

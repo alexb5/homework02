@@ -21,4 +21,6 @@ IpPool filter(int, const IpPool&);
 IpPool filter(int, int,  const IpPool&);
 IpPool filter_any(int, const IpPool&);
 
+void printIp(const lib::IpPool& pool, std::ostream&);
+
 } // namespace lib

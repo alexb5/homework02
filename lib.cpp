@@ -33,6 +33,12 @@ lib::IpPool filter(const lib::IpPool& pool, T pred)
     return result;
 }
 
+std::string toString(const lib::IpAddress& ip)
+{
+    return {std::to_string(ip[0]) + "." + std::to_string(ip[1]) + "." +
+            std::to_string(ip[2]) + "." + std::to_string(ip[3])};
+}
+
 }
 
 std::vector<std::string> lib::split(const std::string &str, char d)
@@ -100,4 +106,10 @@ lib::IpPool lib::filter_any(int number, const IpPool& ipPool)
         return std::any_of(ip.begin(), ip.end(), [number](auto& n) { return n == number; });
     };
     return details::filter(ipPool, pred);
+}
+
+void lib::printIp(const lib::IpPool& pool, std::ostream& out)
+{
+    for(const auto& ip : pool)
+        out << details::toString(ip) << std::endl;
 }
