@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.2)
 
 project(ip_filter VERSION 1.1.$ENV{TRAVIS_BUILD_NUMBER})
 
-configure_file(version.h.in ${PROJECT_SOURCE_DIR}/version.h)
+configure_file(version.h.in ${PROJECT_BINARY_DIR}/version.h)
 
 find_package(GTest REQUIRED)
 
@@ -13,10 +13,11 @@ add_library(library "lib.cpp")
 add_executable(test_${PROJECT_NAME} test_lib.cpp)
 
 
-set_target_properties(${PROJECT_NAME}  test_${PROJECT_NAME} PROPERTIES
+set_target_properties(${PROJECT_NAME}  test_${PROJECT_NAME} library PROPERTIES
         CXX_STANDARD 14
         CXX_STANDARD_REQUIRED ON
         COMPILE_OPTIONS -Wpedantic -Wall -Wextra
+        INCLUDE_DIRECTORIES ${PROJECT_BINARY_DIR}
         )
 
 set_target_properties(test_${PROJECT_NAME} PROPERTIES
